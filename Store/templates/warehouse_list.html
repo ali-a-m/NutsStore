@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Warehouse List</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-4">انبارهای فعال</h1>
+        <div class="row mt-4">
+            {% for warehouse in warehouses %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">نام: {{ warehouse.name }}</h5>
+                            <p class="card-text">شهر: {{ warehouse.city }}</p>
+                            <a href="{% url 'warehouse-detail' warehouse.pk %}" class="btn btn-primary">مشاهده انبار</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>اطلاعات انبار</h1>
+    <p>نام: {{ warehouse.name }}</p>
+    <p>آدرس: {{ warehouse.location }}</p>
+    
+    {% if user == warehouse.seller %}
+          <form method="post" action="{% url 'warehouse-delete' warehouse.id %}">
+              {% csrf_token %}
+              <input type="submit" value="پاک کردن انبار">
+          </form>
+      {% else %}
+          <p style="color: red;">دسترسی تغییر انبار برای شما امکان پذیر نیست</p>
+      {% endif %}
+  </div>
+{% endblock %}

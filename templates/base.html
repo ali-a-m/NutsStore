@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    {% block title %}
+    {% endblock %}
+    <!-- Include necessary CSS stylesheets or CDN links -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css" integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+
+    <link rel="preconnect" href="//fdn.fontcdn.ir">
+    <link rel="preconnect" href="//v1.fontapi.ir">
+    <link href="https://v1.fontapi.ir/css/Estedad" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light"> <!-- Change the class to navbar-light and the background color to light -->
+    <a class="navbar-brand" href="{% url 'store' %}"><img style="width: 45px;" src="{% static 'img/icon1.webp' %}" alt="بلوط"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto"> <!-- Add the 'me-auto' class for more space between items -->
+            {% if request.user.is_authenticated and request.user.is_seller %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="warehouseDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        فروشگاه
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="warehouseDropdown">
+                        <a class="dropdown-item" href="{% url 'store' %}">لیست محصولات</a>
+                        <a class="dropdown-item" href="{% url 'product-create' %}">ایجاد محصول</a>
+                    </div>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'store' %}">فروشگاه</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">تماس با ما</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">درباره ما</a>
+            </li>
+            {% if request.user.is_authenticated and request.user.is_seller %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="warehouseDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        مدیریت انبار
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="warehouseDropdown">
+                        <a class="dropdown-item" href="{% url 'warehouse-list' %}">لیست انبارها</a>
+                        <a class="dropdown-item" href="{% url 'create-warehouse' %}">ثبت انبار</a>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <div class="navbar-text welcome-message">{{ user.username }}</div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out"></i></a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">ورود</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">ثبت نام</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<!-- Content block to be filled by child templates -->
+<div class=""> <!-- Add a container class for a little more spacing -->
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% if user.is_authenticated %}
+    {% if user.is_seller %}
+        <a href="{% url 'seller_orders' %}" class="fixed-cart">
+            <i class="fa fa-shopping-basket"></i>
+            <span class="cart-badge">{{ order_unsend }}</span>
+        </a>
+    {% else %}
+        <a href="{% url 'cart' %}" class="fixed-cart">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="cart-badge">{{ cart_quantity }}</span>
+        </a>
+    {% endif %}
+{% endif %}
+
+<!-- Include necessary JavaScript scripts or CDN links -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% block footer %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <style>
+    /* Custom CSS for seller_orders.html */
+.title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.cart-container {
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cart-id {
+  font-size: 18px;
+  color: #555;
+  margin-top: 0;
+}
+
+.sent-button {
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.order-count {
+  font-size: 14px;
+  color: #777;
+}
+
+.order-list {
+  margin-top: 15px;
+}
+
+.order {
+  margin-bottom: 15px;
+}
+
+.order p {
+  margin: 5px 0;
+}
+
+.order-divider {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-link {
+  color: #333;
+  text-decoration: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.current-page {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.no-orders {
+  color: #777;
+  font-style: italic;
+}
+
+  </style>
+{% endblock %}
+
+
+
+{% block content %}
+  <h1 class="title">Orders for Seller</h1>
+  
+  {% if cart_orders %}
+    {% for cart_order in cart_orders %}
+      <div class="cart-container">
+        <div class="cart-header">
+          <h2 class="cart-id">Cart ID: {{ cart_order.cart }}</h2>
+          {% if not cart_order.cart.sent %}
+            <form class="sent-form" action="{% url 'seller_orders' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="cart_id" value="{{ cart_order.cart.id }}">
+              <button class="sent-button" type="submit" name="sent_button">Sent</button>
+            </form>
+          {% endif %}
+        </div>
+        <p class="order-count">Order Count: {{ cart_order.order_count }}</p>
+        
+        <div class="order-list">
+          {% for order in cart_order.order_list %}
+            <div class="order">
+              <p><strong>Order ID:</strong> {{ order.pk }}</p>
+              <p><strong>Customer:</strong> {{ order.cart.customer.username }}</p>
+              <p><strong>Product:</strong> {{ order.product.name }}</p>
+              <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+              <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+            </div>
+            {% if not forloop.last %}
+              <hr class="order-divider">
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    
+    {% if cart_orders.has_other_pages %}
+      <div class="pagination">
+        {% if cart_orders.has_previous %}
+          <a class="pagination-link" href="?page={{ cart_orders.previous_page_number }}">Previous</a>
+        {% endif %}
+        
+        <span class="current-page">{{ cart_orders.number }}</span>
+        
+        {% if cart_orders.has_next %}
+          <a class="pagination-link" href="?page={{ cart_orders.next_page_number }}">Next</a>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+  {% else %}
+    <p class="no-orders">No orders found.</p>
+  {% endif %}
+  
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>Product List</title>
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="owl-carousel slideshow-carousel" dir="ltr">
+      <div class="item">
+        <img src="{% static 'img/title_one.webp' %}" alt="Slide 1">
+      </div>
+      <div class="item">
+        <img src="{% static 'img/title_two.webp' %}" alt="Slide 2">
+      </div>
+      <div class="item">
+        <img src="{% static 'img/title_three.webp' %}" alt="Slide 3">
+      </div>
+    </div>
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-center row mb-4">
+        <a href="#آجیل" class="menu col-md-3 card p-4 m-4" style="background: radial-gradient(circle,#ffb13d 0,#ce580f 100%); border-radius: 10%; max-width: 250px;">
+          <img src="{% static 'img/agil.webp' %}" alt="Slide 1">
+          <p style="text-align: center; color: white; font-weight: bolder; font-size: larger;">انواع آجیل</p>
+          <p style="text-align: center; color: white;">آجیل خام، آجیل شور</p>
+        </a>
+        <a href="#خشکبار" class="menu col-md-3 card p-4 m-4" style="background: radial-gradient(circle,#f5cf8b 0,#f8bf5c 100%); border-radius: 10%; max-width: 250px;">
+          <img src="{% static 'img/khbar.webp' %}" alt="Slide 2">
+          <p style="text-align: center; color: white; font-weight: bolder; font-size: larger;">انواع خشکبار</p>
+          <p style="text-align: center; color: white;">توت، برگه، انجیر، زرشک</p>
+        </a>
+        <a href="#شکلات" class="menu col-md-3 card p-4 m-4" style="background: radial-gradient(circle,#bf7f3a 0,#883b00 100%); border-radius: 10%; max-width: 250px;">
+          <img src="{% static 'img/chclt.webp' %}" alt="Slide 2">
+          <p style="text-align: center; color: white; font-weight: bolder; font-size: larger;">انواع شکلات</p>
+          <p style="text-align: center; color: white;">پذیرایی، تخته‌ای، دراژه</p>
+        </a>
+        <a href="#تنقلات" class="menu col-md-3 card p-4 m-4" style="background: radial-gradient(circle,#d6e724 0,#70a942 100%); border-radius: 10%; max-width: 250px;">
+          <img src="{% static 'img/chocolate-thakhtehi-2.webp' %}" alt="Slide 2">
+          <p style="text-align: center; color: white; font-weight: bolder; font-size: larger;">انواع تنقلات</p>
+          <p style="text-align: center; color: white;">ایرانی، خارجی</p>
+        </a>
+      </div>
+      {% if products %}
+        {% for product_type in product_types %}
+          <div style="margin-top: 80px;">
+            <h2 id="{{ product_type.name }}">{{ product_type.name }}</h2>
+          <div class="row">
+            <div class="col-md-9">
+              <div class="product-list owl-carousel" dir="ltr">
+                {% for product in products %}
+                    {% if product.product_type == product_type %}
+                      <div class="item">
+                        <a class="m-4" href="{% url 'product-detail' product.pk %}">
+                          <div class="product-card">
+                            <img src="{{ product.main_photo.url }}" class="product-image" alt="{{ product.name }}">
+                            <div class="product-details">
+                              <h5 class="product-name mt-4">{{ product.name }}</h5>
+                              <div class="row mt-4">
+                                <p class="col-sm-10" dir="rtl"><span style="font-weight: bolder;">{{ product.price }}</span> <span style="color: green; font-size: 14px;">تومان</span></p>
+                                <p class="col-sm-2"><i class="fa fa-shopping-basket" style="color: green;"></i></p>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <div class="col-md-3 mt-4">
+              <img src="{% static 'img/'|add:product_type.name|add:'.webp' %}" alt="{{ product.name }}" class="img-fluid">
+            </div>
+          </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="m-4 p-4 d-flex justify-content-center" style="font-size: xx-large; font-weight: bolder;">
+          هیچ محصولی وجود ندارد
+        </div>
+      {% endif %}
+      
+      <div class="row p-4 m-4">
+        <div class="col-md-6">
+          <div class="row">
+            <img class="img" src="{% static 'img/middle_1.webp' %}" alt="footer">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <img class="img" src="{% static 'img/middle_2.webp' %}" alt="footer">
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-4 p-4">
+        <div class="col-md-3">
+          <div class="row p-4 m-4" style="text-align: center;">
+            <img src="{% static 'img/footer_1.webp' %}" alt="footer">
+            <div class="text-footer mt-4">ضمانت بازگشت</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row p-4 m-4" style="text-align: center;">
+            <img src="{% static 'img/footer_2.webp' %}" alt="footer">
+            <div class="text-footer mt-4">محصول با کیفیت</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row p-4 m-4" style="text-align: center;">
+            <img src="{% static 'img/footer_3.webp' %}" alt="footer">
+            <div class="text-footer mt-4">پرداخت امن</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="row p-4 m-4" style="text-align: center;">
+            <img src="{% static 'img/footer_4.webp' %}" alt="footer">
+            <div class="text-footer mt-4">تحویل سریع</div>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <script>
+    $(document).ready(function() {
+      $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false
+      });
+    });
+
+    $('.slideshow-carousel').owlCarousel({
+        loop: true,
+        // margin: 10,
+        nav: false,
+        autoplay: true,
+        autoplayTimeout: 3000,
+        autoplayHoverPause: true,
+        items: 1
+      });
+  </script>
+{% endblock %}

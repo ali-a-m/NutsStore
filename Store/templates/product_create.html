@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="row">
+        <div class="col-md-6 mt-4">
+          <div class="card p-4 m-4" style="background-color: #fffbf0;">
+            <h2 class="text-center">ایجاد محصول</h2>
+            <form method="post" enctype="multipart/form-data" class="mt-4 create-product-form">
+              {% csrf_token %}
+              
+              <div class="form-group">
+                <label for="{{ form.product_type.id_for_label }}" class="form-label">نوع محصول:</label>
+                {{ form.product_type|add_class:"form-control" }}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.name.id_for_label }}" class="form-label">نام محصول:</label>
+                {{ form.name|add_class:"form-control" }}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="form-label">توضیحات محصول:</label>
+                {{ form.description|add_class:"form-control" }}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.price.id_for_label }}" class="form-label">قیمت محصول:</label>
+                {{ form.price|add_class:"form-control" }}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.amount.id_for_label }}" class="form-label">موجودی محصول:</label>
+                {{ form.amount|add_class:"form-control" }}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.warehouse.id_for_label }}" class="form-label">موجود در انبار:</label>
+                {{ form.warehouse|add_class:"form-control" }}
+              </div>
+
+              <div class="form-group">
+                <label for="{{ form.main_photo.id_for_label }}" class="form-label mt-4">عکس محصول:</label>
+                {{ form.main_photo|add_class:"form-control-file" }}
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary btn-block mt-4">ایجاد آگهی</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-4" style="position: fixed; left: -150px; width: 1000px; z-index: -1;">
+          <img src="{% static 'img/ajil-178c79728f.webp' %}" alt="Image" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

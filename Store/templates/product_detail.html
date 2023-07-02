@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>{{ product.name }}</title>
+  <link rel="stylesheet" href="{% static 'css/product_details.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5">
+        <img src="{{ product.main_photo.url }}" alt="{{ product.name }}" class="img-fluid product-image">
+      </div>
+      <div class="col-md-1"></div>
+      <div class="col-md-6">
+        {% if user.is_authenticated and product.seller == user %}
+          <div class="d-flex align-items-end" dir="ltr">
+            <form method="post" action="{% url 'product-delete' product.pk %}">
+              {% csrf_token %}
+              <input type="submit" value="حذف کالا" class="btn btn-danger product-button">
+            </form>
+          </div>
+        {% endif %}
+        <h1 class="product-title">{{ product.name }}</h1>
+        <p class="product-description mt-4">{{ product.description }}</p>
+        {% if user.is_authenticated and user.is_customer %}
+          <form method="POST" action="{% url 'add-to-cart' product.pk %}" class="mt-3">
+            {% csrf_token %}
+            <div style="margin-top: 80px;">
+              <div class="inp">
+                <button type="button" class="btn increment-btn"><i class="fa fa-plus"></i></button>
+                <input type="number" name="amount" min="1" max="{{product.amount}}" value="1" class="product-amount">
+                <button type="button" class="btn decrement-btn"><i class="fa fa-minus"></i></button>
+              </div>
+              <p class="mt-2">موجودی انبار: <span style="margin-right: 30px;">{{product.amount}}</span></p>
+            </div>
+            <div style="margin-top: 70px;">
+              <p class="product-price mt-4">مبلغ سفارش شما: <span id="total-price" style="margin-right: 30px; color: black;">{{product.price}}</span></p>
+              <button type="submit" class="btn btn-success product-button p-4"><span style="margin-left: 30px;">به سبد خریدم اضافه کن</span> <i class="fa fa-shopping-cart"></i></button>
+            </div>
+          </form>
+        {% else %}
+          <p class="mt-2">موجودی انبار: <span style="margin-right: 30px;">{{product.amount}}</span></p>
+          <p class="product-price mt-4">مبلغ سفارش شما: <span id="total-price" style="margin-right: 30px; color: black;">{{product.price}}</span></p>
+        {% endif %}
+
+        {% if user.is_authenticated and product.seller == user %}
+          <form class="" method="POST" action="{% url 'change_product' pk=product.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="price" class="form-label">قیمت جدید</label>
+              <input type="text" name="price" id="price" value="{{product.price}}" required>
+            </div>
+    
+            <div class="form-group mt-3">
+              <label for="amount" class="form-label">موجودی جدید</label>
+              <input type="text" name="amount" id="amount" value="{{product.amount}}" required>
+            </div>
+            
+            <div class="form-group mt-3">
+              <button type="submit" class="btn btn-primary">تغییر</button>
+            </div>
+          </form>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+<script>
+  const incrementBtn = document.querySelector('.increment-btn');
+  const decrementBtn = document.querySelector('.decrement-btn');
+  const amountInput = document.querySelector('.product-amount');
+  const totalPriceSpan = document.getElementById('total-price');
+  const productPrice = parseInt(totalPriceSpan.innerText);
+
+
+  incrementBtn.addEventListener('click', () => {
+    increaseAmount();
+  });
+
+  decrementBtn.addEventListener('click', () => {
+    decreaseAmount();
+  });
+
+  amountInput.addEventListener('input', () => {
+    updateTotalPrice();
+  });
+
+  function increaseAmount() {
+    amountInput.value = parseInt(amountInput.value) + 1;
+    updateTotalPrice();
+  }
+
+  function decreaseAmount() {
+    if (amountInput.value > 1) {
+      amountInput.value = parseInt(amountInput.value) - 1;
+      updateTotalPrice();
+    }
+  }
+
+  function updateTotalPrice() {
+    const amount = parseInt(amountInput.value);
+
+    if (!isNaN(productPrice) && !isNaN(amount)) {
+      const totalPrice = productPrice * amount;
+      totalPriceSpan.innerText = totalPrice;
+    }
+  }
+</script>
+{% endblock %}

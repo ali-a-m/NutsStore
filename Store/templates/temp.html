@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Product List</title>
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
+{% endblock %}
+
+
+{% block content %}
+  <div class="container">
+    <div class="">
+      {% if products %}
+        {% for product_type in product_types %}
+          <h2>{{ product_type.name }}</h2>
+          <div class="product-list">
+            {% for product in products %}
+              {% if product.product_type == product_type %}
+                <div class="col-md-4">
+                  <a href="{% url 'product-detail' product.pk %}">
+                    <div class="product-card">
+                      <img src="{{ product.main_photo.url }}" class="product-image" alt="{{ product.name }}">
+                      <div class="product-details">
+                        <h5 class="product-name">{{ product.name }}</h5>
+                        <p class="product-price">Price: ${{ product.price }}</p>
+                        <p class="product-amount">stock: {{ product.amount }}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endfor %}
+      {% else %}
+          <div>
+            هیچ محصولی وجود ندارد
+          </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

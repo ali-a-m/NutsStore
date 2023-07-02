@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>از خرید شما ممنونیم!</h1>
+    <p>خرید شما با موفقیت انجام شد</p>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>نام محصول</th>
+          <th>تعداد</th>
+          <th>قیمت</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, item in cart.items %}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="col-sm-10"></div>
+    <a href="{% url 'store' %}" class="col-sm-2 btn btn-primary" style="text-align: center;">بازگشت به فروشگاه</a>
+  </div>
+{% endblock %}

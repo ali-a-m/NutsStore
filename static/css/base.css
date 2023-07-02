@@ -1,0 +1,74 @@
+.navbar-dark {
+    background-color: #b9b9b9; /* Set the desired background color */
+}
+
+.navbar-brand {
+    font-size: x-large;
+    font-weight: bolder;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+.navbar-brand:hover {
+    color: #007bff !important;
+}
+
+.nav-item {
+    margin-right: 10px;
+    font-size: 1.3em !important;
+    background-color: transparent !important;
+}
+
+.nav-link {
+    background-color: transparent !important;
+    font-weight: bold !important;
+    font-size: large !important;
+}
+
+.nav-item:hover {
+    color: rgb(87, 87, 232) !important; /* Set the hover font color with opacity */
+    background-color: transparent !important;
+}
+.nav-link:hover {
+    color: rgb(87, 87, 232) !important; /* Set the hover font color with opacity */
+    background-color: transparent !important;
+}
+
+.dropdown-item {
+    color: #212529; /* Set the font color */
+}
+
+.dropdown-item:hover {
+    background-color: #adadad; /* Set the hover background color */
+    color: #fff; /* Set the hover font color */
+}
+
+.fixed-cart {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: #fff;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }

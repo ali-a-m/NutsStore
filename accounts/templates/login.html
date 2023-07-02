@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="row">
+        <div class="col-md-6 mt-4">
+          <div class="card p-4 m-4" style="background-color: #fffbf0;">
+            <h2 class="text-center">ورود به حساب کاربری</h2>
+            <form method="post" class="mt-4">
+              {% csrf_token %}
+              
+              <div class="form-group">
+                <label for="{{ form.username.id_for_label }}" class="form-label">نام کاربری:</label>
+                {{ form.username|add_class:"form-control" }}
+              </div>
+              
+              <div class="form-group">
+                <label for="{{ form.password.id_for_label }}" class="form-label">رمز ورود:</label>
+                {{ form.password|add_class:"form-control" }}
+              </div>
+              
+              <div>
+                <button type="submit" class="btn btn-primary btn-block mt-4 d-flex justify-content-center">ورود</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-6" style="position: fixed; left: -150px; width: 1000px; z-index: -1;">
+          <img src="{% static 'img/ajil-178c79728f.webp' %}" alt="Image" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

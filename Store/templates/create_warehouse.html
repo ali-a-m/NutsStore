@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>Create Warehouse</title>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="row">
+                <div class="col-md-6 mt-4">
+                    <div class="card p-4 m-4" style="background-color: #fffbf0;">
+                        <h2 class="text-center">ثبت انبار</h2>
+                        <form method="POST" class="mt-4">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}" class="form-label">نام انبار:</label>
+                                {{ form.name|add_class:"form-control" }}
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="{{ form.city.id_for_label }}" class="form-label">شهر:</label>
+                                {{ form.city|add_class:"form-control" }}
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="{{ form.location.id_for_label }}" class="form-label">آدرس انبار:</label>
+                                {{ form.location|add_class:"form-control" }}
+                            </div>
+                            <div class="mt-4 d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary btn-block mt-4">ثبت انبار</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6 mt-4" style="position: fixed; left: -50px; width: 800px; z-index: -1;">
+                    <img src="{% static 'img/warehouse.png' %}" alt="Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!-- delete_warehouse.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Warehouse
+{% endblock %}
+
+{% block content %}
+    <h1>Delete Warehouse</h1>
+    <p>Are you sure you want to delete the warehouse "{{ warehouse.name }}"?</p>
+
+    <form method="post" action="{% url 'warehouse-delete' warehouse.id %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+{% endblock %}

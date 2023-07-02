@@ -1,0 +1,9 @@
+{
+    "app": "django-app",
+    "disks": [
+        {
+            "name": "disk",
+            "mountTo": "./"
+        }
+    ]
+}

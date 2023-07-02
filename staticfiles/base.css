@@ -1,0 +1,58 @@
+.navbar-dark {
+    background-color: #343a40; /* Set the desired background color */
+}
+
+.navbar-brand {
+    color: #fff; /* Set the font color */
+    font-weight: bold;
+}
+
+.navbar-brand:hover {
+    color: #fff; /* Set the hover font color */
+}
+
+.nav-link {
+    color: #fff; /* Set the font color */
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.75); /* Set the hover font color with opacity */
+}
+
+.dropdown-item {
+    color: #212529; /* Set the font color */
+}
+
+.dropdown-item:hover {
+    background-color: #343a40; /* Set the hover background color */
+    color: #fff; /* Set the hover font color */
+}
+.fixed-cart {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: #fff;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }

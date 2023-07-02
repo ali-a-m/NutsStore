@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  <title>سبد خرید</title>
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>سبد خرید</h1>
+
+    {% if cart %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>نام محصول</th>
+            <th>تعداد</th>
+            <th>قیمت</th>
+            <th>جمع قیمت</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item_id, item in cart.items %}
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>
+                <span class="quantity">{{ item.quantity }}</span>
+              </td>
+              <td>{{ item.price }}</td>
+              <td>{{ item.subtotal }}</td>
+              <td>
+                <form method="POST" action="{% url 'remove-from-cart' item_id %}" class="cart-form">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-danger cart-action"><i class="fa fa-trash-o"></i></button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="text-right">قیمت نهایی:</td>
+            <td>{{ total_price }}</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <form method="POST" class="row">
+        {% csrf_token %}
+        <div class="col-lg-10"></div>
+        <button type="submit" class="btn btn-primary col-lg-2 d-flex justify-content-center">پرداخت</button>
+      </form>
+
+    {% else %}
+      <p>Your cart is empty.</p>
+    {% endif %}
+  </div>
+{% endblock %}

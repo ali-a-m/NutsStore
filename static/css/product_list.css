@@ -1,0 +1,101 @@
+.product-list {
+    /* margin: 20px; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .container a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+  
+  .product-card {
+    width: 250px;
+    border-radius: 5%;
+    padding: 10px;
+    /* margin: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-card img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .product-card .product-name {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #1d1d1e !important;
+  }
+  
+  .product-card .product-price {
+    font-size: 16px;
+    color: #555 !important;
+    font-weight: bold;
+  }
+  
+  .owl-carousel .owl-stage {
+    margin: 0 0px; /* Adjust the margin as per your requirement */
+  }
+  
+  .owl-carousel .owl-item {
+    margin: 0 0px; /* Adjust the margin as per your requirement */
+  }
+    
+
+  .text-footer {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #21726b;
+  }
+
+  h2 {
+    background-color: rgb(33, 114, 107, 0.3);
+    padding: 0.5em;
+    color: black;
+    border: 0px solid;
+    border-radius: 0% 100% 0% 100%;
+    padding-top: 4x0px;
+    padding-right: 100px;
+  }
+
+  .img {
+    border: 1px solid transparent;
+    border-radius: 4%;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* Apply the animation to the image on hover */
+  .menu img:hover {
+    animation: rotate 0.5s ease-in-out none;
+  }
